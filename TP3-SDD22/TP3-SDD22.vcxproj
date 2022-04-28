@@ -142,6 +142,7 @@
     <ClCompile Include="fonctions.cpp" />
     <ClCompile Include="planete.cpp" />
     <ClCompile Include="TP3-SDD22.cpp" />
+    <ClCompile Include="vaisseau.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Planetes_100.txt" />
@@ -155,6 +156,7 @@
     <ClInclude Include="fonctions.h" />
     <ClInclude Include="planete.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="vaisseau.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TP3-SDD22.rc" />

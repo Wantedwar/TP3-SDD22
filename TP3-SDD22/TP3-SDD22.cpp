@@ -31,12 +31,19 @@ int main()
     //Delta_2 598 656 3671086 Delta 102.45
     //planete p1("Delta1", 589, 596, 297369, "Delta", 68.93);
     //planete p2("Delta2", 598, 656, 3671086, "Delta", 102.45);
+    //Delta_3 645 870 5544317 Delta 66.75
+    //Delta_4 737 666 7933529 Delta 116.21
 
     planetes[0] = new planete("Delta1", 589, 596, 297369, "Delta", 68.93);
     planetes[1] = new planete("Delta2", 598, 656, 3671086, "Delta", 102.45);
+    planetes[2] = new planete("Delta3", 645, 870, 5544317, "Delta", 66.75);
+    planetes[3] = new planete("Delta4", 737, 666, 7933529, "Delta", 116.21);
 
-    ajouterarrete(planetes[0], planetes[1], madjacence);
-    
+    //penser à supprimer planète
+    remplir_madjacence(planetes, madjacence);
+    cout << affichermadjacence(madjacence);
+    //implémenter dfs et disjkstra
+    //faire le fichier
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

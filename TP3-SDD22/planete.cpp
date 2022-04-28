@@ -1,7 +1,7 @@
 #include "planete.h"
 
 
-int planete::nextid = -1;
+int planete::pnextid = -1;
 
 planete::planete(string nom, int x, int y, int population, string nation, float prixcarburant)
 {
@@ -11,7 +11,7 @@ planete::planete(string nom, int x, int y, int population, string nation, float 
 	this->nation = nation;
 	this->population = population;
 	this->prixcarburant = prixcarburant;
-	id = ++nextid;
+	id = ++pnextid;
 	std::cout << "nouvelle planete : " << nom << "\nid : " << id << std::endl;
 }
 

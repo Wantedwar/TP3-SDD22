@@ -6,7 +6,7 @@ using std::string;
 
 struct planete
 {
-	static int nextid;
+	static int pnextid;
 	int id;
 	string nom;
 	int x;
