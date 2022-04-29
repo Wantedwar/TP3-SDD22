@@ -60,7 +60,7 @@ int main()
         //?1  V  S  D // affiche  la réponse à  la  question:  existe-t-il  une  route  entre  les planètes S et D pour un vaisseau de type V
         else if (toks2[0] == "?1") {
 
-            //cout << "...?1" << endl;
+            cout << cheminvaisseau(toks2[1], toks2[2], toks2[3], madjacence, vaisseaux, planetes);
 
 
         }
@@ -81,7 +81,7 @@ int main()
         }
         // / N1 N2 // Applique un scénario de conflit spatial entre les nationsN1 et N2
         else if (toks2[0] == "/") {
-            cout << "\n\nTOKS2ICIJKLMJKLMSGFG\n\n" << toks2[1];
+
             setguerre(toks2[1], toks2[2], guerres);
 
         }
@@ -95,24 +95,19 @@ int main()
     }
 
     //ZONE DE TESTS
-    cout << affichermadjacence(madjacence);
+    //cout << affichermadjacence(madjacence);
     //cout << idplanete(planetes, "Delta_1");
-    cout << afficherplanete(*planetes[idplanete(planetes, "Delta_2")]);
-    cout << afficherplanete(*planetes[idplanete(planetes, "Delta_2")]);
-    cout << planetes[idplanete(planetes, "Delta_2")]->nation; 
-    cout << afficherplanetes(planetes);
-    cout << afficherguerre(guerres);
-
+    //cout << afficherplanete(*planetes[idplanete(planetes, "Delta_2")]);
+    //cout << afficherplanete(*planetes[idplanete(planetes, "Delta_2")]);
+    //cout << planetes[idplanete(planetes, "Delta_2")]->nation; 
+    //cout << afficherplanetes(planetes);
+    //cout << afficherguerre(guerres);
+    
+    //cout << affichertout(planetes, vaisseaux, guerres);
+    cout << affichermadjacence(madjacence);
+    int parcourus[NB] = { 0 };
+    bfs(0, madjacence, parcourus, 200);
+    
 
 }
 
-// Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
-// Déboguer le programme : F5 ou menu Déboguer > Démarrer le débogage
-
-// Astuces pour bien démarrer : 
-//   1. Utilisez la fenêtre Explorateur de solutions pour ajouter des fichiers et les gérer.
-//   2. Utilisez la fenêtre Team Explorer pour vous connecter au contrôle de code source.
-//   3. Utilisez la fenêtre Sortie pour voir la sortie de la génération et d'autres messages.
-//   4. Utilisez la fenêtre Liste d'erreurs pour voir les erreurs.
-//   5. Accédez à Projet > Ajouter un nouvel élément pour créer des fichiers de code, ou à Projet > Ajouter un élément existant pour ajouter des fichiers de code existants au projet.
-//   6. Pour rouvrir ce projet plus tard, accédez à Fichier > Ouvrir > Projet et sélectionnez le fichier .sln.

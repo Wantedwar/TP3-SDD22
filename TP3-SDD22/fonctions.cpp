@@ -9,7 +9,7 @@ using namespace std;
 void ajouterarrete(planete* p1, planete* p2, int madjacence[][NB])
 {
 	int distance = sqrt((p1->x + p2->x) ^ 2 + (p1->y + p2->y) ^ 2);
-	std::cout << "distance calculee entre " << p1->nom << " et " << p2->nom << " est : " << distance << std::endl;
+	//std::cout << "distance calculee entre " << p1->nom << " et " << p2->nom << " est : " << distance << std::endl;
     //cout << "x1 : " << p1->x << " x2 : " << p2->x << endl;
     //cout << "y2 : " << p1->y << " y2 : " << p2->y << endl;
 	if (distance < 250) {
@@ -30,6 +30,39 @@ void remplir_madjacence(planete* planetes[NB], int madjacence[][NB])
         }
         x++;
     }   
+}
+
+void bfs(int pdebut, int madjacence[][NB], int parcourus[NB], int max)
+{
+    //lmao
+    int x = 0;
+    int c = pdebut;
+    //ôu pas mdr
+    vector <int> queue;//copier parcourus ou remplacer par vecteur
+    bool visite[NB] = {false};
+
+    queue.push_back(c);
+    visite[c] = true;
+
+    int vis;
+    
+    while (!queue.empty()) {
+        vis = queue[0];
+
+        //cout << vis << " ";
+        parcourus[x++] = vis;
+
+        queue.erase(queue.begin());
+        for (int i = 0; i < NB; i++) {
+            if (madjacence[vis][i] != -1 && (!visite[i] ) ) {
+                if(madjacence[vis][i] < max){
+                    queue.push_back(i);
+                }
+                visite[i] = true;
+            
+            }
+        }
+    }
 }
 
 
@@ -87,7 +120,8 @@ void chargvaisseau(string vcharger, vaisseau* vaisseaux[NBV])
         //cout << toks2[1] << endl;
         string test = toks2[0];
         
-        vaisseaux[x] = new vaisseau(toks2[0], stoi(toks2[1]));
+        vaisseaux[x++] = new vaisseau(toks2[0], stoi(toks2[1]));
+
         /*struct planete test;*/
 
     }
@@ -99,7 +133,7 @@ string affichervaisseaux(vaisseau* vaisseaux[NBV])
     string retour;
     retour += "VAISSEAUX\n";
     for (int i = 0; i < NBV; i++) {
-        retour += vaisseaux[i]->modele + to_string(vaisseaux[i]->capacite);
+        retour += vaisseaux[i]->modele + to_string(vaisseaux[i]->capacite) + "\n";
     }
     return retour;
 }
@@ -144,6 +178,32 @@ string afficherplanete(planete plan)
     return retour;
 }
 
+string cheminvaisseau(string v, string p1, string p2, int madjacence[][NB], vaisseau* vaisseaux[NBV], planete* planetes[NB])
+{
+    string retour;
+    int parcourus[NB]={-1};
+    int id1 = idplanete(planetes, p1);
+    int id2 = idplanete(planetes, p2);
+    int x = 0;
+    int max = vaisseaux[x]->capacite;
+    while (vaisseaux[x++]->modele.compare(v)) {
+        max = vaisseaux[x]->capacite;
+    }
+
+    bfs(id1, madjacence, parcourus, max);
+    retour = "Pas de chemin existant entre " + p1 + " et " + p2 + "\n";
+    x = 0;
+    while (parcourus[x++] != -1) {
+        if (parcourus[x] == id2) {
+            retour = "Chemin existant entre " + p1 + " et " + p2 + "\n";
+        }
+
+    }
+
+    retour += "Pour le vaisseau " + v + " de capacite " + to_string(max) + "\n";
+    return retour;
+}
+
 void setguerre(string n1, string n2, vector<vector<string>>& guerres)
 {
     guerres.push_back({ n1,n2 });
@@ -178,6 +238,15 @@ string afficherguerre(vector<vector<string>>& guerres)
         retour += guerres[i][0] + " " + guerres[i][1] + "\n";
     }
 
+    return retour;
+}
+
+string affichertout(planete* planetes[NB], vaisseau* vaisseaux[NBV], vector<vector<string>>& guerres)
+{
+    string retour;
+    retour += afficherplanetes(planetes);
+    retour += affichervaisseaux(vaisseaux);
+    retour += afficherguerre(guerres);
     return retour;
 }
 
