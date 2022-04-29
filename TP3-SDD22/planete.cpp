@@ -13,6 +13,8 @@ planete::planete(string nom, int x, int y, int population, string nation, float 
 	this->prixcarburant = prixcarburant;
 	id = ++pnextid;
 	std::cout << "nouvelle planete : " << nom << "\nid : " << id << std::endl;
+	std::cout << "Planete: " << nom << " (id : " << id << ") " << x << " " << y << " " << nation << " " << population << " " << prixcarburant << std::endl;
+
 }
 
 

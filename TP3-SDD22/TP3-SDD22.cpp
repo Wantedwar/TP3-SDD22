@@ -3,7 +3,6 @@
 
 //#include <iostream>
 #include "fonctions.h"
-#include <vector>
 
 
 using std::vector;
@@ -14,36 +13,97 @@ using std::endl;
 
 int main()
 {
+    //////////INITS//////////
     int madjacence[NB][NB];
     planete* planetes[NB] = {nullptr};
-
-    cout << "   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20" << endl;
+    vaisseau* vaisseaux[NBV] = { nullptr };
+    //cout << "   1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20" << endl;
     for (int i = 0; i < NB; i++) {//g pa trouvé comment init tout à -1
-        cout << i+1 << " ";
+        //cout << i+1 << " ";
         for (int j = 0; j < NB; j++) {
             madjacence[i][j] = -1;
-            cout << madjacence[i][j] << " ";
+            //cout << madjacence[i][j] << " ";
         }
-        cout << endl;
+        //cout << endl;
+    }
+    
+    vector<vector<string>> guerres;
+    std::ifstream transaction("Transactions_Simples.txt", std::ios::in);
+    string ligne; // variable contenant chaque ligne lue 
+    string mot;
+    //cout << "t1" << endl;
+    while (getline(transaction, ligne))
+    {   
+        // afficher la ligne à l'écran 
+        //cout << "t2" << endl;
+        string s = ligne;
+        std::stringstream ss(s);
+        string toks2[6]; //toks => tokens
+        string sep;
+        //ss >> toks[0] >> sep >> toks[1] >> sep >> toks[2] >> sep >> toks[3] >> sep >> toks[4] >> sep >> toks[5];
+        ss >> toks2[0] >> toks2[1] >> toks2[2] >> toks2[3] >> toks2[4];
+        //cout << "t3" << endl;
+        cout << toks2[0] << " " << toks2[1] << " " << toks2[2] << " " << toks2[3] << " " << toks2[4] << endl;
+
+        //#P FICHIER // Charge un système stellaire en mémoire (fichiers de planète)
+        if (toks2[0] == "#P") {
+            chargplanete(toks2[1], planetes);
+            remplir_madjacence(planetes, madjacence);
+
+
+        }
+        //#V FICHIER // Charge les types de vaisseau en mémoire (fichier vaisseau) 
+        else if (toks2[0] == "#V") {
+            chargvaisseau(toks2[1], vaisseaux);
+
+        }
+        //?1  V  S  D // affiche  la réponse à  la  question:  existe-t-il  une  route  entre  les planètes S et D pour un vaisseau de type V
+        else if (toks2[0] == "?1") {
+
+            //cout << "...?1" << endl;
+
+
+        }
+        /*struct planete test;*/
+        //?2  V  S  D
+        //  Affiche  le  plus  court  chemin ainsi  que sa longueur,  c’estla distance que le vaisseau V doit parcourir pour se rendre de 
+        //la planète S à D.
+        else if (toks2[0] == "?2") {
+
+            //cout << "...?2" << endl;
+
+        }
+        //?3  V S  D 
+        //  Affiche  le chemin et  le  coût  du  trajet le moins  dispendieux que peut suivrele vaisseau V pour se rendre de la planète S à D.
+        else if (toks2[0] == "?3") {
+            //
+
+        }
+        // / N1 N2 // Applique un scénario de conflit spatial entre les nationsN1 et N2
+        else if (toks2[0] == "/") {
+            cout << "\n\nTOKS2ICIJKLMJKLMSGFG\n\n" << toks2[1];
+            setguerre(toks2[1], toks2[2], guerres);
+
+        }
+        //&//  Affiche touteslesplanètes  (info  des planètes), tous  lestypes  de vaisseau (info des vaisseaux)ettouslesconflits entre deux nations.
+        else if (toks2[0] == "&") {
+
+            //cout << "...&" << endl;
+
+        }
+
     }
 
-    //Delta_1 589 596 297369 Delta 68.93
-    //Delta_2 598 656 3671086 Delta 102.45
-    //planete p1("Delta1", 589, 596, 297369, "Delta", 68.93);
-    //planete p2("Delta2", 598, 656, 3671086, "Delta", 102.45);
-    //Delta_3 645 870 5544317 Delta 66.75
-    //Delta_4 737 666 7933529 Delta 116.21
-
-    planetes[0] = new planete("Delta1", 589, 596, 297369, "Delta", 68.93);
-    planetes[1] = new planete("Delta2", 598, 656, 3671086, "Delta", 102.45);
-    planetes[2] = new planete("Delta3", 645, 870, 5544317, "Delta", 66.75);
-    planetes[3] = new planete("Delta4", 737, 666, 7933529, "Delta", 116.21);
-
-    //penser à supprimer planète
-    remplir_madjacence(planetes, madjacence);
+    //ZONE DE TESTS
     cout << affichermadjacence(madjacence);
-    //implémenter dfs et disjkstra
-    //faire le fichier
+    //cout << idplanete(planetes, "Delta_1");
+    cout << afficherplanete(*planetes[idplanete(planetes, "Delta_2")]);
+    cout << afficherplanete(*planetes[idplanete(planetes, "Delta_2")]);
+    cout << planetes[idplanete(planetes, "Delta_2")]->nation; 
+    cout << afficherplanetes(planetes);
+    cout << afficherguerre(guerres);
+
+
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

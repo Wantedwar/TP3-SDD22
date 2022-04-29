@@ -17,6 +17,8 @@ struct planete
 	///////////Constructeurs///////////
 	planete(string nom, int x, int y, int population, string nation, float prixcarburant);
 
+
+
 };
 
 

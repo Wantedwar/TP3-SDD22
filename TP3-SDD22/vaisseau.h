@@ -3,7 +3,7 @@
 
 using std::string;
 
-class vaisseau
+struct vaisseau
 {
 	static int vnextid;
 	int id;
